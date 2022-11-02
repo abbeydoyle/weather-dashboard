@@ -7,7 +7,6 @@ var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&ap
 fetch(queryURL);
 */
 
-
 const APIKey = "49415678631ad9acec49635922e5f265";
 var cities = [];
 //organize history new to old
@@ -82,7 +81,6 @@ function retrieveCity(city) {
     // Converts the temp to Kelvin with the below formula
     var tempF = (response.main.temp - 273.15) * 1.8 + 32;
     $(".tempF").text("Temperature (Kelvin) " + tempF);
-    getUV(response.coord.lat, response.coord.lon);
     forecast(city);
     input.val("");
   });
@@ -118,31 +116,17 @@ function renderCities() {
   }
 }
 
-//getUV;
-function getUV(lat, lon) {
-  var uvIndexURL =
-    "https://api.openweathermap.org/data/2.5/uvi/forecast?appid=" +
-    APIKey +
-    "&lat=" +
-    lat +
-    "&lon=" +
-    lon +
-    "&cnt=1";
-  $.ajax({ url: uvIndexURL, type: "GET" }).then(function (response) {
-    $("#uv").text("UV-index : " + response[0].value);
-  });
-}
 
 // 5 days forecast codes
 
 function forecast(city) {
-  var forecastURL =
+  var forecastQueryURL =
     "https://api.openweathermap.org/data/2.5/forecast?q=" +
     city +
     "&appid=" +
     APIKey;
 
-  $.ajax({ url: forecastURL, type: "GET" }).then(function (response) {
+  $.ajax({ url: forecastQueryURL, type: "GET" }).then(function (response) {
     var list = response.list;
     console.log(response);
     // for each iteration of our loop
@@ -156,8 +140,8 @@ function forecast(city) {
       var day = date.getDate();
       var month = date.getMonth();
       var year = date.getFullYear();
-
-      var formatedDate = `${month + 1}/${day}/${year}`;
+//*FIXME: 5 day forecast is ahead by one day
+      var fullDate = `${month + 1}/${day}/${year}`;
       // Creating and storing a div tag
       var col = $("<div>");
       col.addClass("col");
@@ -166,7 +150,7 @@ function forecast(city) {
       col.append(mycard);
 
       // Creating a paragraph tag with the response item
-      var p = $("<p>").text(formatedDate);
+      var p = $("<p>").text(fullDate);
       // Creating and storing an image tag
 
       var iconUrl = "https://openweathermap.org/img/wn/" + iconId + "@2x.png";

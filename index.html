@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" src="./assets/style.css">
+      <script src="https://kit.fontawesome.com/34cb2d0b64.js" crossorigin="anonymous"></script>
+      <title>Weather Dashboard</title>
+</head>
+
+
+<body>
+
+      <header>
+            <h1>Weather Dashboard</h1>
+      </header>
+
+<!-- *TODO: play with bootstrap specs -->
+
+      <main class="container-fluid">
+            <div class="row">
+                  <div class="col-12 col-md-3 p-2 search-column">
+                  <form class="border p-2" id="city-search-form">
+                        <h2>Search for a city:</h2>
+                        <input
+                              id="city"
+                              class = "form-input"
+                              type="text"
+                              autofocus="true"
+                              placeholder="Search for a city"
+                              aria-label="Search"
+                        />
+                        <br>
+                        <button class="btn btn-primary" type="submit">Search <i class="fa-solid fa-magnifying-glass-location"></i></button>
+                  </form>
+                  <div class="past-search border" id="past-search-buttons"></div>
+            </div>
+            <div class="col-12 col-md-9">
+                  <div class = "row border selected-city" id = "current-forecast">
+                      <div class = "col-12">
+                          <h2 id="searched-city"></h2>
+                          <div id = "current-weather-container" class = "list-group"></div>
+                      </div>  
+                  </div>
+                  <div class = "row border" id = "five-day-forecast">
+                          <h2 class= "col-12" id = "forecast"></h2>
+                          <div class = "d-flex" id = "fiveday-container"></div>
+                  </div>  
+              </div>
+          </div>
+      </main>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+      <script src="./assets/script.js"></script>    
+
+</body>
+</html>

@@ -145,6 +145,8 @@ function forecast(city) {
       mycard.addClass("card");
       col.append(mycard);
 
+      var fh2 = $("#fivedayforecast").text("Five Day Forecast");
+
       var h4 = $("<h4>").text(fullDate);
 
       var iconUrl = "https://openweathermap.org/img/wn/" + iconId + "@2x.png";
@@ -158,6 +160,7 @@ function forecast(city) {
       var phumid = $("<p>").text("Humidity: " + humidity + " %");
 
       // display forecast weather data
+      $("#fivedayforecast").append(fh2);
       mycard.append(h4);
       mycard.append(weatherImage);
       mycard.append(ptemp);

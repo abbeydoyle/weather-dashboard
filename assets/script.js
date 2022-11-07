@@ -152,7 +152,7 @@ function forecast(city) {
       var month = date.getMonth();
       var year = date.getFullYear();
 //*FIXME: 5 day forecast is ahead by one day
-      var fullDate = `${month + 1}/${day}/${year}`;
+      var fullDate = `${month + 1}/${day - 1}/${year}`;
       // Creating and storing a div tag
       var col = $("<div>");
       col.addClass("col");

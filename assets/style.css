@@ -1,12 +1,92 @@
-/* :root {
-
-} */
+:root {
+      --sage: #d3e7d5;
+      --forest-green: #082708;
+}
 
 * {
       font-family: Georgia, 'Times New Roman', Times, serif;
+      
+}
+
+.body, .card {
+      background-color: var(--sage);
+      color: var(--forest-green)
 }
 
 header {
       padding: 1rem;
 
+}
+
+.col {
+      padding-top:1.5rem;
+      padding-left: 0rem;
+      padding-right: 0rem;
+;
+}
+
+.card {
+      font-size: 0.8rem;
+      text-align: center;
+      margin-left:0.15rem;
+      margin-right: 0.15rem;
+      border-color: var(--forest-green);
+      padding-top: 0.5rem;
+}
+
+h4 {
+      font-size: 1.15rem;
+}
+
+#temp, #wind, #humid {
+      font-size: 1.15rem;
+}
+
+h2 {
+      font-weight: 500;
+}
+
+h3 {
+      font-weight: 500;
+      font-size: 1.5rem;
+}
+
+h1 {
+      font-weight: 600;
+}
+
+
+.card:hover {
+      box-shadow: inset 0 0 1rem var(--forest-green), 0 0 1rem var(--forest-green);
+}
+
+#todayWeather:hover {
+      box-shadow: inset 0 0 1rem var(--forest-green), 0 0 1rem var(--forest-green);
+}
+
+input:hover {
+      box-shadow: inset 0 0 1rem var(--forest-green), 0 0 1rem var(--forest-green);
+}
+
+input[type=text] {
+      background-color: var(--sage);
+      border-color: var(--forest-green);
+}
+
+input {
+      border-color: var(--forest-green);
+}
+
+.history {
+      text-align: left;
+      border: 1px solid #082708;
+      border-radius: 0.25rem;
+      height: 3rem;
+      line-height: 50px;
+      padding-left: 1rem;
+      margin-right: 1rem;
+}
+
+.history:hover {
+      box-shadow: inset 0 0 1rem var(--forest-green), 0 0 1rem var(--forest-green);
 }

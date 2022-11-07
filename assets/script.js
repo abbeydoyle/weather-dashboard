@@ -1,9 +1,7 @@
 
 /*
-* TODO:
 api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
 var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
-fetch(queryURL);
 */
 
 const APIKey = "49415678631ad9acec49635922e5f265";
@@ -31,9 +29,7 @@ $(document).ready(function () {
 
   renderCities();
 
-      // *TODO: API get city function
-      // *TODO: append html elements
-      // *TODO: make user input required
+
   //user search button
   $(".btn").on("click", function (event) {
     event.preventDefault();
@@ -61,17 +57,11 @@ function renderCities() {
   $("#cityViewed").html("");
   for (var c = 0; c < limit; c++) {
     var cityViewed = $("<div>");
-    cityViewed.addClass("row").css({
-      textAlign: "center",
-      border: "1px solid silver",
-      height: "50px",
-      lineHeight: "50px",
-      paddingLeft: "40px",
-    });
+    cityViewed.addClass("history");
     cityViewed.html(cities[c]);
     $("#cityViewed").prepend(cityViewed);
 
-    //OnClick event on each city
+    //display current and forecast city weather based off search history city click
     cityViewed.attr("id", `${cities[c]}`);
     $(`#${cities[c]}`).on("click", function () {
       retrieveCity($(this).text());
@@ -89,12 +79,11 @@ function retrieveCity(city) {
     city +
     "&units=imperial&appid=" +
     APIKey;
-//*FIXME: API doesnt give info
   
 
-//get API data
+//get current day API data
+//display current day image and weather
   $.ajax({ url: queryURL, type: "GET" }).then(function (response) {
-    //icon url var, url and element
     console.log(response);
     var iconLoc = response.weather[0].icon;
     console.log(iconLoc);
@@ -106,20 +95,17 @@ function retrieveCity(city) {
     $(".current-city").text(response.name + " (" + currentDate + ")");
     $(".current-city").append(iconImage);
     $("#temp").text("Temperature : " + response.main.temp + " °F");
-    $("#windy").text("Wind Speed : " + response.wind.speed + " MPH");
-    $("#hum").text("Humidity : " + response.main.humidity + " %");
-    // Converts the temp to Kelvin with the below formula
-    var tempF = (response.main.temp - 273.15) * 1.8 + 32;
-    $(".tempF").text("Temperature (Kelvin) " + tempF);
+    $("#wind").text("Wind Speed : " + response.wind.speed + " mph");
+    $("#humid").text("Humidity : " + response.main.humidity + " %");
     forecast(city);
     input.val("");
 
-
-    if (response.iconLoc = "03n") {
-      $(".body").attr("style","background-color:red");
-    } else if (response.iconLoc != "03n") {
-      $(".body").attr("style","background-color:black");
-    }
+    //attempt at changing background color based off current weather image
+    // if (iconLoc === "03n") {
+    //   $(".body").attr("style","background-color:red");
+    // } else if (iconLoc !== "03n") {
+    //   $(".body").attr("style","background-color:black");
+    // }
 
   });
 }
@@ -127,8 +113,8 @@ function retrieveCity(city) {
 
 
 
-// 5 days forecast codes
-
+//get forecast API data
+//display forecast image and weather
 function forecast(city) {
   var forecastQueryURL =
     "https://api.openweathermap.org/data/2.5/forecast?q=" +
@@ -139,7 +125,7 @@ function forecast(city) {
   $.ajax({ url: forecastQueryURL, type: "GET" }).then(function (response) {
     var list = response.list;
     console.log(response);
-    // for each iteration of our loop
+    // loop each forecast day
     $("#forecast").html("");
     for (var i = 39; i >= 0; i = i - 8) {
       var temp = ((list[i].main.temp - 273.15) * 1.8 + 32).toFixed(2);
@@ -151,37 +137,32 @@ function forecast(city) {
       var day = date.getDate();
       var month = date.getMonth();
       var year = date.getFullYear();
-//*FIXME: 5 day forecast is ahead by one day
+
       var fullDate = `${month + 1}/${day - 1}/${year}`;
-      // Creating and storing a div tag
       var col = $("<div>");
       col.addClass("col");
       var mycard = $("<div>");
       mycard.addClass("card");
       col.append(mycard);
 
-      // Creating a paragraph tag with the response item
-      var p = $("<p>").text(fullDate);
-      // Creating and storing an image tag
+      var h4 = $("<h4>").text(fullDate);
 
       var iconUrl = "https://openweathermap.org/img/wn/" + iconId + "@2x.png";
 
       var weatherImage = $("<img>");
-      // Setting the src attribute of the image to a property pulled off the result item
+
       weatherImage.attr("src", iconUrl);
 
-      var p1 = $("<p>").text("Temp: " + temp + "°F");
-      var p2 = $("<p>").text("Wind Speed: " + windSpeed + " MPH");
-      var p3 = $("<p>").text("Humidity: " + humidity + "%");
+      var ptemp = $("<p>").text("Temp: " + temp + " °F");
+      var pwind = $("<p>").text("Wind Speed: " + windSpeed + " mph");
+      var phumid = $("<p>").text("Humidity: " + humidity + " %");
 
-      // Appending the paragraph and image tag to mycard
-      mycard.append(p);
+      // display forecast weather data
+      mycard.append(h4);
       mycard.append(weatherImage);
-      mycard.append(p1);
-      mycard.append(p2);
-      mycard.append(p3);
-
-      // Prependng the col to the HTML page in the "#forecast" div
+      mycard.append(ptemp);
+      mycard.append(pwind);
+      mycard.append(phumid);
 
       $("#forecast").prepend(col);
     }
